@@ -14,7 +14,6 @@ bbc_text_classification/
 ├── data/
 │   └── bbc-text.csv                            # Downloaded BBC News dataset
 ├── classify.py                                 # Interactive & CLI Python script
-├── bbc_text_categorization_modified.ipynb      # Jupyter Notebook version
 └── README.md     
                               # Documentation and usage guide
 QuickStart
