@@ -782,12 +782,12 @@ textarea#articleTextInput:focus {
 
 .ledger-row {
     display: grid;
-    grid-template-columns: 85px 1fr 50px;
+    grid-template-columns: 118px 1fr 46px;
     align-items: center;
     gap: 8px;
     padding: 3px 0;
     font-family: var(--font-ledger);
-    font-size: 0.82rem;
+    font-size: 0.8rem;
 }
 
 .ledger-row:not(:last-child) {
@@ -801,7 +801,12 @@ textarea#articleTextInput:focus {
 }
 
 .ledger-dept {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
     text-transform: capitalize;
+    font-size: 0.76rem;
 }
 
 .ledger-bar-track {
@@ -881,6 +886,11 @@ textarea#articleTextInput:focus {
     color: var(--ink-primary);
 }
 
+.vintage-table th:first-child,
+.vintage-table td:first-child {
+    white-space: nowrap;
+}
+
 .vintage-table td {
     padding: 5px 8px;
     border-bottom: 1px dotted var(--rule-light);
@@ -902,7 +912,9 @@ textarea#articleTextInput:focus {
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    margin-right: 4px;
+    margin-right: 5px;
+    vertical-align: middle;
+    flex-shrink: 0;
 }
 .dept-dot.sport { background: var(--stamp-green); }
 .dept-dot.politics { background: var(--stamp-red); }
