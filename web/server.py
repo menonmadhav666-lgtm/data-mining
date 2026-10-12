@@ -237,44 +237,28 @@ def _display_width(text):
     return width
 
 
-def display_cute_banner(port=8000, accuracy=None):
-    """Display a cute, aesthetic startup banner with server link and status."""
+def display_banner(port=8000):
+    """Display startup banner with News Classification and localhost link alone."""
     BORDER = "\033[38;5;218m"  # Soft pastel pink
     PURPLE = "\033[38;5;183m"  # Pastel lavender
     CYAN = "\033[38;5;117m"    # Pastel sky cyan
-    YELLOW = "\033[38;5;222m"  # Warm soft yellow
-    GREEN = "\033[38;5;151m"   # Soft mint green
-    WHITE = "\033[97m"
     BOLD = "\033[1m"
-    DIM = "\033[2m"
     UNDERLINE = "\033[4m"
     RESET = "\033[0m"
 
-    acc_text = f" • Accuracy: {accuracy}%" if accuracy else ""
-
     lines_content = [
-        f"{PURPLE}{BOLD}✨  N E W S   C L A S S I F I C A T I O N  ✨{RESET}",
-        f"{DIM}The Daily Classifier · Smart Newsroom Edition{RESET}",
-        "---",
-        f"{GREEN}🌸 Ready to classify your news articles in real-time{RESET}",
-        f"{YELLOW}⚡ TF-IDF & Multinomial Naive Bayes{acc_text}{RESET}",
-        "",
-        f"{WHITE}🔗 Localhost Link:{RESET}",
-        f"   👉  {CYAN}{BOLD}{UNDERLINE}http://localhost:{port}{RESET}",
-        "",
-        f"{DIM}☕ Press {BOLD}Ctrl + C{RESET}{DIM} to stop the server anytime{RESET}"
+        f"{PURPLE}{BOLD}News Classification{RESET}",
+        f"{CYAN}{UNDERLINE}http://localhost:{port}{RESET}",
     ]
 
-    width = 62
+    width = 46
     top = f"  {BORDER}╭" + ("─" * (width + 2)) + f"╮{RESET}"
     bottom = f"  {BORDER}╰" + ("─" * (width + 2)) + f"╯{RESET}"
     empty = f"  {BORDER}│" + (" " * (width + 2)) + f"│{RESET}"
 
     output = ["", top, empty]
     for item in lines_content:
-        if item == "---":
-            output.append(f"  {BORDER}├" + ("─" * (width + 2)) + f"┤{RESET}")
-        elif item == "":
+        if item == "":
             output.append(empty)
         else:
             dw = _display_width(item)
@@ -289,12 +273,10 @@ def display_cute_banner(port=8000, accuracy=None):
         print("\n".join(output))
     except UnicodeEncodeError:
         # Fallback to plain ASCII banner if terminal encoding doesn't support unicode
-        print("\n" + "=" * 64)
-        print("   NEWS CLASSIFICATION - The Daily Classifier")
-        print("   TF-IDF + Multinomial Naive Bayes" + (f" ({accuracy}%)" if accuracy else ""))
-        print(f"   Localhost Link: http://localhost:{port}")
-        print("   Press Ctrl + C to stop the server")
-        print("=" * 64 + "\n")
+        print("\n" + "-" * 40)
+        print("  News Classification")
+        print(f"  http://localhost:{port}")
+        print("-" * 40 + "\n")
 
 
 def run_server(port=8000):
@@ -307,9 +289,8 @@ def run_server(port=8000):
     # Clear terminal again so any training output/warnings are wiped clean
     clear_terminal()
 
-    # Display cute banner with localhost link
-    accuracy = MODEL_METRICS.get("accuracy") if MODEL_METRICS else None
-    display_cute_banner(port=port, accuracy=accuracy)
+    # Display banner with news classification and localhost link alone
+    display_banner(port=port)
 
     server_address = ("0.0.0.0", port)
     httpd = HTTPServer(server_address, BroadsheetHandler)
@@ -317,7 +298,6 @@ def run_server(port=8000):
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
-        print("\n  👋 Shutting down server. Goodbye!\n")
         httpd.server_close()
 
 
