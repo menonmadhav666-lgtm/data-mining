@@ -40,17 +40,10 @@ def train_classifier():
         print(f"[!] Warning: Dataset not found at {DATA_PATH}. Live API will use heuristics.")
         return False
 
-    print("\n" + "=" * 65, flush=True)
-    print("      THE DAILY CLASSIFIER — TRAINING MODEL FOR WEB ENGINE", flush=True)
-    print("=" * 65, flush=True)
-
     df = pd.read_csv(DATA_PATH)
     initial_count = len(df)
     df.drop_duplicates(inplace=True)
     CATEGORIES = sorted(df["category"].unique().tolist())
-
-    print(f"[*] Loaded {initial_count} total articles ({len(df)} unique).", flush=True)
-    print(f"[*] News Categories ({len(CATEGORIES)}): {', '.join(CATEGORIES)}", flush=True)
 
     x_train, x_test, y_train, y_test = train_test_split(
         df["text"],
@@ -80,7 +73,6 @@ def train_classifier():
         )
     ])
 
-    print("[*] Training pipeline (TfidfVectorizer + MultinomialNB)...", flush=True)
     pipeline.fit(x_train, y_train)
 
     # Evaluate
@@ -96,9 +88,6 @@ def train_classifier():
         "test_samples": len(x_test),
         "report": report
     }
-
-    print(f"[*] Model trained successfully! Test Set Accuracy: {MODEL_METRICS['accuracy']}%", flush=True)
-    print("=" * 65 + "\n", flush=True)
     return True
 
 
@@ -193,6 +182,10 @@ class BroadsheetHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(payload)
 
+    def log_message(self, format, *args):
+        # Silence HTTP request logging in terminal
+        pass
+
     def end_headers(self):
         # Prevent caching for live development
         self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
@@ -205,16 +198,10 @@ def run_server(port=8000):
 
     server_address = ("0.0.0.0", port)
     httpd = HTTPServer(server_address, BroadsheetHandler)
-    url = f"http://localhost:{port}"
-
-    print(f"[*] The Daily Classifier is live on Fleet Street!", flush=True)
-    print(f"[*] Access Broadsheet Web Interface: {url}", flush=True)
-    print(f"[*] Press Ctrl+C to halt the printing press.\n", flush=True)
 
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
-        print("\n[*] Halting the press. Server stopped.", flush=True)
         httpd.server_close()
 
 
