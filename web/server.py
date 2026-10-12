@@ -12,6 +12,16 @@ import os
 import sys
 import json
 import argparse
+
+# Ensure UTF-8 output and ANSI VT sequences on Windows
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+    os.system("")
+
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 import pandas as pd
 import numpy as np
@@ -192,9 +202,114 @@ class BroadsheetHandler(SimpleHTTPRequestHandler):
         super().end_headers()
 
 
+def clear_terminal():
+    """Clear all previous content from the terminal screen."""
+    if sys.platform == "win32":
+        try:
+            sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+            sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+        except Exception:
+            pass
+        os.system("")
+
+    os.system("cls" if os.name == "nt" else "clear")
+    sys.stdout.write("\033[H\033[2J\033[3J")
+    sys.stdout.flush()
+
+
+def _display_width(text):
+    """Calculate terminal display width considering emojis and ANSI codes."""
+    import unicodedata
+    width = 0
+    in_escape = False
+    for char in text:
+        if char == "\033":
+            in_escape = True
+            continue
+        if in_escape:
+            if char == "m":
+                in_escape = False
+            continue
+        if ord(char) > 0x1F000 or unicodedata.east_asian_width(char) in ("W", "F"):
+            width += 2
+        else:
+            width += 1
+    return width
+
+
+def display_cute_banner(port=8000, accuracy=None):
+    """Display a cute, aesthetic startup banner with server link and status."""
+    BORDER = "\033[38;5;218m"  # Soft pastel pink
+    PURPLE = "\033[38;5;183m"  # Pastel lavender
+    CYAN = "\033[38;5;117m"    # Pastel sky cyan
+    YELLOW = "\033[38;5;222m"  # Warm soft yellow
+    GREEN = "\033[38;5;151m"   # Soft mint green
+    WHITE = "\033[97m"
+    BOLD = "\033[1m"
+    DIM = "\033[2m"
+    UNDERLINE = "\033[4m"
+    RESET = "\033[0m"
+
+    acc_text = f" • Accuracy: {accuracy}%" if accuracy else ""
+
+    lines_content = [
+        f"{PURPLE}{BOLD}✨  N E W S   C L A S S I F I C A T I O N  ✨{RESET}",
+        f"{DIM}The Daily Classifier · Smart Newsroom Edition{RESET}",
+        "---",
+        f"{GREEN}🌸 Ready to classify your news articles in real-time{RESET}",
+        f"{YELLOW}⚡ TF-IDF & Multinomial Naive Bayes{acc_text}{RESET}",
+        "",
+        f"{WHITE}🔗 Localhost Link:{RESET}",
+        f"   👉  {CYAN}{BOLD}{UNDERLINE}http://localhost:{port}{RESET}",
+        "",
+        f"{DIM}☕ Press {BOLD}Ctrl + C{RESET}{DIM} to stop the server anytime{RESET}"
+    ]
+
+    width = 62
+    top = f"  {BORDER}╭" + ("─" * (width + 2)) + f"╮{RESET}"
+    bottom = f"  {BORDER}╰" + ("─" * (width + 2)) + f"╯{RESET}"
+    empty = f"  {BORDER}│" + (" " * (width + 2)) + f"│{RESET}"
+
+    output = ["", top, empty]
+    for item in lines_content:
+        if item == "---":
+            output.append(f"  {BORDER}├" + ("─" * (width + 2)) + f"┤{RESET}")
+        elif item == "":
+            output.append(empty)
+        else:
+            dw = _display_width(item)
+            padding = width - dw
+            row = f"  {BORDER}│  {RESET}" + item + (" " * max(0, padding)) + f"{BORDER}│{RESET}"
+            output.append(row)
+    output.append(empty)
+    output.append(bottom)
+    output.append("")
+
+    try:
+        print("\n".join(output))
+    except UnicodeEncodeError:
+        # Fallback to plain ASCII banner if terminal encoding doesn't support unicode
+        print("\n" + "=" * 64)
+        print("   NEWS CLASSIFICATION - The Daily Classifier")
+        print("   TF-IDF + Multinomial Naive Bayes" + (f" ({accuracy}%)" if accuracy else ""))
+        print(f"   Localhost Link: http://localhost:{port}")
+        print("   Press Ctrl + C to stop the server")
+        print("=" * 64 + "\n")
+
+
 def run_server(port=8000):
     """Initialize model and launch HTTP server."""
+    # Clear terminal before anything else
+    clear_terminal()
+
     train_classifier()
+
+    # Clear terminal again so any training output/warnings are wiped clean
+    clear_terminal()
+
+    # Display cute banner with localhost link
+    accuracy = MODEL_METRICS.get("accuracy") if MODEL_METRICS else None
+    display_cute_banner(port=port, accuracy=accuracy)
 
     server_address = ("0.0.0.0", port)
     httpd = HTTPServer(server_address, BroadsheetHandler)
@@ -202,11 +317,17 @@ def run_server(port=8000):
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
+        print("\n  👋 Shutting down server. Goodbye!\n")
         httpd.server_close()
 
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser(description="Run The Daily Classifier Web Application")
     parser.add_argument("--port", type=int, default=8000, help="Port to serve on (default: 8000)")
     args = parser.parse_args()
     run_server(port=args.port)
+
+
+if __name__ == "__main__":
+    main()
+
