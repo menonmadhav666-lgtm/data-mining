@@ -173,7 +173,7 @@ function renderVintageDate() {
     };
 
     if (currentDateFormattedEl) {
-        currentDateFormattedEl.textContent = `${dayName}, ${ordinal(dateNum)} of ${monthName}, Anno Domini ${year}`;
+        currentDateFormattedEl.textContent = `${dayName}, ${ordinal(dateNum)} of ${monthName}`;
     }
 }
 
