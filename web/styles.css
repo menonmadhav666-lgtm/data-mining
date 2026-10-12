@@ -8,23 +8,23 @@
     --bg-parchment-light: #FAF6ED;
     --bg-parchment-dark: #E8DEC8;
     --bg-parchment-aged: #DFD3BA;
-    
+
     --ink-primary: #1F1A17;
     --ink-secondary: #4A3E35;
     --ink-faded: #7D6F63;
     --ink-highlight: #0D0B0A;
-    
+
     --rule-color: #2E2620;
     --rule-light: #B8A995;
     --rule-gold: #C5A059;
-    
+
     /* Department Rubber Stamp Pigments */
     --stamp-red: #96281B;
     --stamp-green: #2B5838;
     --stamp-blue: #224870;
     --stamp-amber: #A05A1C;
     --stamp-purple: #5C2D63;
-    
+
     /* Fonts */
     --font-masthead: 'UnifrakturMaguntia', 'Pirata One', 'Playfair Display', serif;
     --font-headline: 'Playfair Display SC', 'Playfair Display', Georgia, serif;
@@ -32,14 +32,16 @@
     --font-body: 'Libre Baskerville', 'IM Fell English', Georgia, serif;
     --font-typewriter: 'Special Elite', 'Courier Prime', Courier, monospace;
     --font-ledger: 'Courier Prime', monospace;
-    
+
     /* Shadows & Artifacts */
     --shadow-paper: 0 10px 30px rgba(44, 34, 25, 0.12), 0 1px 4px rgba(44, 34, 25, 0.08);
-    --shadow-stamp: inset 0 0 4px rgba(0,0,0,0.25), 0 3px 6px rgba(0,0,0,0.15);
+    --shadow-stamp: inset 0 0 4px rgba(0, 0, 0, 0.25), 0 3px 6px rgba(0, 0, 0, 0.15);
 }
 
 /* Reset & Base Setup */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -56,7 +58,7 @@ body.newspaper-theme {
     font-family: var(--font-body);
     color: var(--ink-primary);
     background-color: var(--bg-parchment);
-    background-image: 
+    background-image:
         radial-gradient(circle at 50% 0%, #faf5ea 0%, var(--bg-parchment) 70%),
         radial-gradient(circle at 20% 80%, rgba(210, 190, 160, 0.3) 0%, transparent 60%);
     line-height: 1.6;
@@ -68,7 +70,10 @@ body.newspaper-theme {
 /* Subtle Paper Grain & Noise Texture */
 .paper-texture-overlay {
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     pointer-events: none;
     opacity: 0.035;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
@@ -94,8 +99,16 @@ body.newspaper-theme {
     font-size: 16px;
     color: var(--rule-color);
 }
-.broadsheet-container::before { top: 6px; left: 8px; }
-.broadsheet-container::after { top: 6px; right: 8px; }
+
+.broadsheet-container::before {
+    top: 6px;
+    left: 8px;
+}
+
+.broadsheet-container::after {
+    top: 6px;
+    right: 8px;
+}
 
 /* ==========================================================================
    HEADER & TOP BAR
@@ -216,7 +229,7 @@ body.newspaper-theme {
     color: var(--ink-primary);
     line-height: 1.05;
     margin: 4px 0 6px;
-    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.7), 2px 2px 0px rgba(0,0,0,0.08);
+    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.7), 2px 2px 0px rgba(0, 0, 0, 0.08);
 }
 
 .masthead-motto {
@@ -271,7 +284,7 @@ body.newspaper-theme {
     margin-bottom: 20px;
     overflow: hidden;
     height: 34px;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .ticker-label {
@@ -309,8 +322,13 @@ body.newspaper-theme {
 }
 
 @keyframes tickerAnimation {
-    0% { transform: translate3d(0, 0, 0); }
-    100% { transform: translate3d(-100%, 0, 0); }
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+
+    100% {
+        transform: translate3d(-100%, 0, 0);
+    }
 }
 
 /* ==========================================================================
@@ -379,7 +397,7 @@ body.newspaper-theme {
     border: 1px solid var(--rule-color);
     padding: 14px;
     border-radius: 2px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1), var(--shadow-paper);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), var(--shadow-paper);
     margin-bottom: 16px;
 }
 
@@ -496,14 +514,14 @@ textarea#articleTextInput {
     resize: vertical;
     outline: none;
     overflow-wrap: break-word;
-    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.08);
+    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.08);
     transition: border-color 0.2s;
 }
 
 textarea#articleTextInput:focus {
     border-color: var(--ink-highlight);
     background-color: #FFFDF9;
-    box-shadow: inset 0 1px 4px rgba(0,0,0,0.12), 0 0 0 1px var(--rule-color);
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.12), 0 0 0 1px var(--rule-color);
 }
 
 /* Button Actions Bar */
@@ -561,8 +579,15 @@ textarea#articleTextInput:focus {
 }
 
 @keyframes vintageThrob {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.02); }
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+    }
 }
 
 /* Vintage Notice Box */
@@ -659,11 +684,13 @@ textarea#articleTextInput:focus {
         transform: scale(2.8) rotate(12deg);
         filter: blur(4px);
     }
+
     60% {
         opacity: 0.95;
         transform: scale(0.92) rotate(-5deg);
         filter: blur(0px);
     }
+
     100% {
         opacity: 1;
         transform: scale(1) rotate(-3deg);
@@ -698,11 +725,25 @@ textarea#articleTextInput:focus {
 }
 
 /* Dynamic Department Stamp Themes */
-.rubber-stamp.dept-sport { color: var(--stamp-green); }
-.rubber-stamp.dept-tech { color: var(--stamp-blue); }
-.rubber-stamp.dept-business { color: var(--stamp-amber); }
-.rubber-stamp.dept-entertainment { color: var(--stamp-purple); }
-.rubber-stamp.dept-politics { color: var(--stamp-red); }
+.rubber-stamp.dept-sport {
+    color: var(--stamp-green);
+}
+
+.rubber-stamp.dept-tech {
+    color: var(--stamp-blue);
+}
+
+.rubber-stamp.dept-business {
+    color: var(--stamp-amber);
+}
+
+.rubber-stamp.dept-entertainment {
+    color: var(--stamp-purple);
+}
+
+.rubber-stamp.dept-politics {
+    color: var(--stamp-red);
+}
 
 /* Galvanometer / Confidence Gauge */
 .confidence-galvanometer {
@@ -732,7 +773,7 @@ textarea#articleTextInput:focus {
     height: 16px;
     background: #d8cdb4;
     border: 1px solid var(--rule-color);
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .antique-meter-fill {
@@ -740,7 +781,7 @@ textarea#articleTextInput:focus {
     background: linear-gradient(90deg, #96281B, #C5A059 50%, #2B5838 100%);
     width: 0%;
     transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
 .meter-tick-marks {
@@ -760,11 +801,27 @@ textarea#articleTextInput:focus {
     line-height: 1.2;
 }
 
-.meter-tick-marks span:nth-child(1) { left: 0%; transform: translateX(0); }
-.meter-tick-marks span:nth-child(2) { left: 25%; }
-.meter-tick-marks span:nth-child(3) { left: 50%; }
-.meter-tick-marks span:nth-child(4) { left: 75%; }
-.meter-tick-marks span:nth-child(5) { left: 100%; transform: translateX(-100%); }
+.meter-tick-marks span:nth-child(1) {
+    left: 0%;
+    transform: translateX(0);
+}
+
+.meter-tick-marks span:nth-child(2) {
+    left: 25%;
+}
+
+.meter-tick-marks span:nth-child(3) {
+    left: 50%;
+}
+
+.meter-tick-marks span:nth-child(4) {
+    left: 75%;
+}
+
+.meter-tick-marks span:nth-child(5) {
+    left: 100%;
+    transform: translateX(-100%);
+}
 
 /* Category Probability Ledger */
 .probability-ledger {
@@ -902,7 +959,7 @@ textarea#articleTextInput:focus {
 }
 
 .vintage-table tr:nth-child(even) td {
-    background: rgba(0,0,0,0.02);
+    background: rgba(0, 0, 0, 0.02);
 }
 
 .vintage-table tfoot td {
@@ -921,11 +978,26 @@ textarea#articleTextInput:focus {
     vertical-align: middle;
     flex-shrink: 0;
 }
-.dept-dot.sport { background: var(--stamp-green); }
-.dept-dot.politics { background: var(--stamp-red); }
-.dept-dot.business { background: var(--stamp-amber); }
-.dept-dot.entertainment { background: var(--stamp-purple); }
-.dept-dot.tech { background: var(--stamp-blue); }
+
+.dept-dot.sport {
+    background: var(--stamp-green);
+}
+
+.dept-dot.politics {
+    background: var(--stamp-red);
+}
+
+.dept-dot.business {
+    background: var(--stamp-amber);
+}
+
+.dept-dot.entertainment {
+    background: var(--stamp-purple);
+}
+
+.dept-dot.tech {
+    background: var(--stamp-blue);
+}
 
 /* Telemetry Grid Boxes */
 .telemetry-grid {
@@ -1080,9 +1152,11 @@ textarea#articleTextInput:focus {
     .broadsheet-grid {
         grid-template-columns: 1fr 1fr;
     }
+
     .newspaper-column.column-audit {
         grid-column: span 2;
     }
+
     .newspaper-column:not(:last-child)::after {
         display: none;
     }
@@ -1092,31 +1166,39 @@ textarea#articleTextInput:focus {
     .broadsheet-container {
         padding: 16px 12px;
     }
+
     .newspaper-title {
         font-size: 2.4rem;
     }
+
     .masthead-top-bar {
         flex-direction: column;
         gap: 6px;
         text-align: center;
     }
+
     .masthead-sub-banner {
         grid-template-columns: 1fr;
         gap: 4px;
         text-align: center;
     }
+
     .banner-cell.center {
         border: none;
     }
+
     .banner-cell:last-child {
         text-align: center;
     }
+
     .broadsheet-grid {
         grid-template-columns: 1fr;
     }
+
     .newspaper-column.column-audit {
         grid-column: span 1;
     }
+
     .input-actions-bar {
         grid-template-columns: 1fr;
     }
