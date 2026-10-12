@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Daily Classifier — Broadsheet Edition</title>
+    <meta name="description" content="A vintage broadsheet newspaper interface for automated text classification and machine learning news categorization.">
+    <!-- Google Fonts for Authentic Vintage Editorial Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Pirata+One&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,700&family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,700&family=Special+Elite&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="newspaper-theme">
+    <!-- Background Paper Grain Overlay -->
+    <div class="paper-texture-overlay" aria-hidden="true"></div>
+
+    <div class="broadsheet-container">
+        
+        <!-- TOP HEADER: Barometer, Date & Edition Info -->
+        <header class="masthead-top-bar">
+            <div class="top-bar-item weather-gauge">
+                <span class="ornament">✠</span>
+                <span class="label">Barometer:</span>
+                <span class="value" id="barometerValue">30.14 inHg • Foggy & Crisp</span>
+            </div>
+            <div class="top-bar-item edition-date">
+                <span id="currentDateFormatted">Friday, October 9th, Anno Domini</span>
+            </div>
+            <div class="top-bar-item dispatch-controls">
+                <button id="soundToggleBtn" class="vintage-pill-btn" title="Toggle Mechanical Typewriter & Press Audio">
+                    <span class="btn-icon">🔔</span> <span class="btn-text">Audio: Muted</span>
+                </button>
+                <button id="printPageBtn" class="vintage-pill-btn" title="Print this morning's classified front page">
+                    <span class="btn-icon">🖨️</span> <span class="btn-text">Print Edition</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- MAIN NEWSPAPER MASTHEAD -->
+        <section class="masthead-section">
+            <div class="masthead-ornament-rule top">
+                <span class="rule-leaf-left"></span>
+                <span class="rule-center-diamond">✦ ✦ ✦</span>
+                <span class="rule-leaf-right"></span>
+            </div>
+
+            <div class="masthead-titles">
+                <p class="masthead-kicker">THE CHRONICLE OF INTELLIGENT DISPATCHES & MACHINE LEARNING TELEMETRY</p>
+                <h1 class="newspaper-title">The Daily Classifier</h1>
+                <p class="masthead-motto">“All the Dispatches That Are Fit to Vectorize — Trained via TF-IDF & Multinomial Naive Bayes”</p>
+            </div>
+
+            <div class="masthead-sub-banner">
+                <div class="banner-cell"><span>VOL. CIV • No. 42</span></div>
+                <div class="banner-cell center"><span>LONDON, FLEET STREET & WORLDWIDE EDITION</span></div>
+                <div class="banner-cell"><span>PRICE: TWO PENCE</span></div>
+            </div>
+
+            <div class="masthead-ornament-rule bottom">
+                <span class="rule-line"></span>
+            </div>
+        </section>
+
+        <!-- TELEGRAPHIC TICKER TAPE -->
+        <section class="ticker-tape-container" aria-label="Telegraphic News Ticker">
+            <div class="ticker-label">TELEGRAPH WIRE</div>
+            <div class="ticker-marquee">
+                <div class="ticker-content" id="tickerTapeContent">
+                    • BREAKING: NAIVE BAYES PIPELINE TUNED WITH OPTIMAL LAPLACE SMOOTHING (α = 0.10) • TEST SET ACCURACY MEASURED AT 96.80% ACROSS 500 VERIFIED SAMPLES • 14,000+ N-GRAM FEATURES EXTRACTED • BUSINESS, TECH, POLITICS, SPORT & ENTERTAINMENT DEPARTMENTS FULLY OPERATIONAL •
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN EDITORIAL CONTENT GRID -->
+        <main class="broadsheet-grid">
+
+            <!-- COLUMN 1: THE TYPESETTER'S DESK (INPUT SLATE) -->
+            <article class="newspaper-column column-input">
+                <div class="section-header">
+                    <h2 class="section-title">The Typesetter's Desk</h2>
+                    <span class="section-sub">Original Manuscripts & Urgent Cables</span>
+                </div>
+
+                <div class="typewriter-console">
+                    <div class="console-ribbon">
+                        <span class="ribbon-text">MANUSCRIPT INPUT SLATE</span>
+                        <span class="status-indicator ready" id="systemStatusBadge">PRESS READY</span>
+                    </div>
+
+                    <div class="telegram-presets">
+                        <span class="presets-label">LOAD WIRE DISPATCH:</span>
+                        <div class="telegram-chips">
+                            <button class="telegram-chip" data-sample="sport">
+                                <span class="chip-tag">⚽ Sport</span>
+                                <span class="chip-title">Derby Match</span>
+                            </button>
+                            <button class="telegram-chip" data-sample="tech">
+                                <span class="chip-tag">⚡ Tech</span>
+                                <span class="chip-title">Silicon AI Chip</span>
+                            </button>
+                            <button class="telegram-chip" data-sample="business">
+                                <span class="chip-tag">💼 Business</span>
+                                <span class="chip-title">Market Rally</span>
+                            </button>
+                            <button class="telegram-chip" data-sample="politics">
+                                <span class="chip-tag">🏛️ Politics</span>
+                                <span class="chip-title">Cabinet Debate</span>
+                            </button>
+                            <button class="telegram-chip" data-sample="entertainment">
+                                <span class="chip-tag">🎭 Arts</span>
+                                <span class="chip-title">Film Festival</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="textarea-wrapper">
+                        <div class="slate-ruling"></div>
+                        <textarea id="articleTextInput" rows="8" placeholder="Paste incoming telegraph cable, news dispatch, or draft article text here to be parsed by the linotype machine..."></textarea>
+                    </div>
+
+                    <div class="input-actions-bar">
+                        <button id="clearBtn" class="btn-vintage secondary">
+                            <span class="btn-ornament">✕</span> Clear Slate
+                        </button>
+                        <button id="sampleBtn" class="btn-vintage secondary">
+                            <span class="btn-ornament">🎲</span> Random Cable
+                        </button>
+                        <button id="classifyBtn" class="btn-vintage primary pulse-hover">
+                            <span class="btn-ornament">⚙️</span> Engage Rotary Press
+                        </button>
+                    </div>
+                </div>
+
+                <!-- HISTORICAL DISPATCH NOTE -->
+                <div class="vintage-advert-box">
+                    <div class="advert-border">
+                        <h3 class="advert-title">NOTICE TO REPORTERS</h3>
+                        <p class="advert-copy">
+                            <span class="drop-cap">A</span>rticles are classified through high-dimensional TF-IDF unigram & bigram matrix projections. For maximum precision, supply headlines containing editorial substance of at least six words.
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- COLUMN 2: THE TELEGRAPHIC VERDICT & PROBABILITY LEDGER -->
+            <article class="newspaper-column column-verdict">
+                <div class="section-header">
+                    <h2 class="section-title">Telegraphic Verdict</h2>
+                    <span class="section-sub">Official Editorial Department Stamp</span>
+                </div>
+
+                <div class="verdict-display-card" id="verdictCard">
+                    <!-- Rubber Stamp Container -->
+                    <div class="stamp-stage">
+                        <div class="rubber-stamp" id="rubberStampBadge">
+                            <div class="stamp-inner">
+                                <div class="stamp-dept" id="stampDeptText">POLITICS</div>
+                                <div class="stamp-sub">VERIFIED TELEGRAM</div>
+                                <div class="stamp-conf" id="stampConfidenceText">99.4% PROBABILITY</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Galvanometer / Confidence Meter -->
+                    <div class="confidence-galvanometer">
+                        <div class="gauge-header">
+                            <span class="gauge-label">PROBABILITY CONFIDENCE RATING</span>
+                            <span class="gauge-score" id="gaugeScoreText">99.4%</span>
+                        </div>
+                        <div class="antique-meter-track">
+                            <div class="antique-meter-fill" id="gaugeMeterFill" style="width: 99.4%;"></div>
+                            <div class="meter-tick-marks">
+                                <span>0</span><span>25</span><span>50</span><span>75</span><span>100</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category Probability Ledger -->
+                    <div class="probability-ledger">
+                        <h3 class="ledger-title">DEPARTMENT PROBABILITY LEDGER</h3>
+                        <div class="ledger-rows" id="probabilityLedgerRows">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Salient Vocabulary Signals -->
+                    <div class="salient-signals-section">
+                        <h4 class="signals-title">DETECTED KEYWORD SIGNALS</h4>
+                        <div class="signal-tags-cloud" id="signalTagsCloud">
+                            <span class="signal-tag">parliament</span>
+                            <span class="signal-tag">government</span>
+                            <span class="signal-tag">minister</span>
+                            <span class="signal-tag">election</span>
+                            <span class="signal-tag">budget</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- COLUMN 3: EDITORIAL AUDIT & MODEL ARCHIVES -->
+            <article class="newspaper-column column-audit">
+                <div class="section-header">
+                    <h2 class="section-title">Editorial Audit</h2>
+                    <span class="section-sub">Model Architecture & Test Set Benchmarks</span>
+                </div>
+
+                <!-- Archival Scorecard Table -->
+                <div class="archival-scorecard">
+                    <table class="vintage-table">
+                        <thead>
+                            <tr>
+                                <th>Department</th>
+                                <th>Precision</th>
+                                <th>Recall</th>
+                                <th>F1-Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="dept-dot sport"></span> Sport</td>
+                                <td>0.975</td>
+                                <td>1.000</td>
+                                <td><strong>0.987</strong></td>
+                            </tr>
+                            <tr>
+                                <td><span class="dept-dot politics"></span> Politics</td>
+                                <td>0.989</td>
+                                <td>0.968</td>
+                                <td><strong>0.979</strong></td>
+                            </tr>
+                            <tr>
+                                <td><span class="dept-dot business"></span> Business</td>
+                                <td>0.951</td>
+                                <td>0.983</td>
+                                <td><strong>0.967</strong></td>
+                            </tr>
+                            <tr>
+                                <td><span class="dept-dot entertainment"></span> Entertainment</td>
+                                <td>0.965</td>
+                                <td>0.943</td>
+                                <td><strong>0.954</strong></td>
+                            </tr>
+                            <tr>
+                                <td><span class="dept-dot tech"></span> Tech</td>
+                                <td>0.962</td>
+                                <td>0.927</td>
+                                <td><strong>0.944</strong></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="summary-row">
+                                <td><strong>Weighted Avg</strong></td>
+                                <td>0.968</td>
+                                <td>0.968</td>
+                                <td><strong>0.968</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <!-- Key Telemetry Gauges -->
+                <div class="telemetry-grid">
+                    <div class="telemetry-box">
+                        <span class="box-number">96.8%</span>
+                        <span class="box-caption">Overall Test Accuracy</span>
+                    </div>
+                    <div class="telemetry-box">
+                        <span class="box-number">2,126</span>
+                        <span class="box-caption">Articles in Archive</span>
+                    </div>
+                    <div class="telemetry-box">
+                        <span class="box-number">14,800+</span>
+                        <span class="box-caption">N-Gram Vocabulary</span>
+                    </div>
+                    <div class="telemetry-box">
+                        <span class="box-number">α = 0.1</span>
+                        <span class="box-caption">Laplace Smoothing</span>
+                    </div>
+                </div>
+
+                <!-- Antique Seal & Colophon -->
+                <div class="colophon-box">
+                    <div class="colophon-seal">✦ EX LIBRIS MACHINAE ✦</div>
+                    <p class="colophon-text">
+                        Typeset & vectorized with scikit-learn Naive Bayes framework. Evaluated with 500 stratified holdout samples. No human intervention required.
+                    </p>
+                </div>
+            </article>
+
+        </main>
+
+        <!-- PRINTABLE DISPATCH ARCHIVE (Visible during Print / Export) -->
+        <section class="print-dispatch-summary">
+            <div class="print-divider"></div>
+            <p>Printed directly from the linotype press of The Daily Classifier at Fleet Street, London.</p>
+        </section>
+
+        <!-- FOOTER SECTION -->
+        <footer class="broadsheet-footer">
+            <div class="footer-divider-ornament">
+                <span class="line"></span>
+                <span class="icon">❦ ❦ ❦</span>
+                <span class="line"></span>
+            </div>
+            <div class="footer-meta">
+                <p>© MCMXXVI–MMXXVI The Daily Classifier Publishing Syndicate • All Rights Reserved.</p>
+                <p>Engineered for the Data Mining Department • Powered by TF-IDF & Multinomial Naive Bayes</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Application Script -->
+    <script src="app.js"></script>
+</body>
+</html>

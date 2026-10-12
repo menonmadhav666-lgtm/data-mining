@@ -6,7 +6,7 @@
 ### 1. Executive Summary & Vision
 **The Daily Classifier** is an editorial-grade, vintage broadsheet newspaper web interface designed for real-time news text classification powered by a TF-IDF + Multinomial Naive Bayes machine learning pipeline.
 
-The application combines the tactile nostalgia of early 20th-century print journalism with a **modular, drag-and-drop broadsheet grid system**. Every newspaper section (the "Typesetter's Slate", "Telegraphic Verdict", "Probability Ledger", "Editorial Audit", "Classifieds Lexicon", etc.) is an interactive **draggable tile**. Users and editors can rearrange the broadsheet layout dynamically on the fly, and click any tile to open an in-depth **Editorial Inspector / Edit View** to customize its contents, parameters, column span, and typography.
+The design evokes the golden age of print journalism (late 19th / early 20th-century broadsheets, telegraphic dispatches, and letterpress typography). Modern machine learning telemetry—such as category probabilities, vectorizer n-grams, and evaluation metrics—is reimagined through antique editorial metaphors: printing presses, ink stamps, classified ads, ticker tapes, and woodblock engravings.
 
 ---
 
@@ -15,9 +15,9 @@ The application combines the tactile nostalgia of early 20th-century print journ
 #### 2.1 Design Philosophy: "The Living Broadsheet"
 - **Aged Paper & Tactile Textures**: Textured newsprint backgrounds with subtle paper grain, aged patina, faint ink bleed, and deckled border rules.
 - **Letterpress & Print Artifacts**: High-contrast black printer's ink on parchment, woodcut decorative dividers, drop caps, ornate corner brackets, and red wax / ink rubber stamps for classification verdict tags.
-- **Modular Draggable Grid**: A flexible multi-column broadsheet layout with ink dividers where every article box/tile can be picked up, re-ordered with smooth dragging physics, and saved.
+- **Multi-Column Editorial Grid**: Strict 3-to-4 column newspaper grid layout with vertical rule dividers, justified columns, and dynamic headline scaling.
 
-#### 2.2 Color Palette & Design Tokens
+#### 2.2 Color Palette
 
 | Token | Hex Value | Name | Role & Usage |
 | :--- | :--- | :--- | :--- |
@@ -32,108 +32,123 @@ The application combines the tactile nostalgia of early 20th-century print journ
 | `--stamp-amber` | `#A05A1C` | Brass Amber Stamp | Business, Market Indices |
 | `--stamp-purple` | `#5C2D63` | Royal Broadsheet | Entertainment & Arts |
 | `--rule-color` | `#2E2620` | Engraved Rule Line | Column split lines, banner borders |
-| `--drag-ghost` | `rgba(150,40,27,0.15)` | Linotype Layout Ghost | Drag-and-drop placeholder indicator |
 
 ---
 
-### 3. Modular Tile & Drag-and-Drop Grid System
+### 3. Typography Hierarchy & Masthead Styling
 
-The broadsheet is constructed from modular **Editorial Tiles** positioned within an interactive 12-column responsive print grid.
+The application leverages classic Google Web Fonts paired to simulate an authentic linotype-printed newspaper.
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│                        TOP MASTHEAD & LETTERHEAD                       │
+│   THE DAILY CLASSIFIER  (Masthead: UnifrakturMaguntia / Pirata One)    │
+│   "All The News That Is Fit To Vectorize" • Est. 1922 • Vol. CIV No. 42│
 ├────────────────────────────────────────────────────────────────────────┤
-│ [DRAG-AND-DROP BROADSHEET GRID WORKSPACE]                             │
-│                                                                        │
-│ ┌──────────────────────────┐ ┌───────────────────────────────────────┐ │
-│ │ ⠿ TILE: TYPESETTER SLATE  │ │ ⠿ TILE: TELEGRAPHIC VERDICT           │ │
-│ │ (Input & Telegrams)      │ │ (Rubber Stamp & Probabilities)        │ │
-│ │ [Col Span: 6] [Click-Edit]│ │ [Col Span: 6] [Click-Edit]            │ │
-│ └──────────────────────────┘ └───────────────────────────────────────┘ │
-│                                                                        │
-│ ┌──────────────────────────┐ ┌───────────────────────────────────────┐ │
-│ │ ⠿ TILE: MODEL AUDIT      │ │ ⠿ TILE: FEATURE LEXICON & N-GRAMS     │ │
-│ │ (Test Accuracy 97.4%)    │ │ (Salient Words per Topic)             │ │
-│ │ [Col Span: 7] [Click-Edit]│ │ [Col Span: 5] [Click-Edit]            │ │
-│ └──────────────────────────┘ └───────────────────────────────────────┘ │
-│                                                                        │
-│ ┌────────────────────────────────────────────────────────────────────┐ │
-│ │ ⠿ TILE: CONFUSION MATRIX & HISTORICAL ARCHIVES (Col Span: 12)       │ │
-│ └────────────────────────────────────────────────────────────────────┘ │
+│   HEADLINE (Playfair Display SC / Old Standard TT - 36-48px Bold)      │
+│   Subhead / Kicker (Cinzel / Cormorant Garamond - 18px Italic Small Caps│
+│   Body Text (Libre Baskerville / IM Fell English - 14-16px Justified)   │
+│   Telemetry & Ledgers (Courier Prime / Special Elite - Typewriter)     │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-#### 3.1 Drag-and-Drop Interaction Mechanics
-1. **Grab Handles & Hover States**: Each tile features an authentic printer's ornament grab handle (`⠿` linotype mark). Hovering reveals an engraved highlight border.
-2. **Re-ordering & Drop Indicators**: Dragging a tile provides visual ghosting with a dashed printer's registration line indicating the new drop slot.
-3. **Layout Persistence**: Custom layout order and column widths are automatically saved to `localStorage` (and synchronized with the backend configuration).
-4. **Layout Presets**:
-   - *Default Morning Edition* (Standard 2-column lead + bottom telemetry).
-   - *Analyst's Ledger* (Metrics & probability matrices front and center).
-   - *Minimalist Dispatch* (Compact input slate + immediate rubber stamp verdict).
+#### Font Stack:
+1. **Masthead Title & Letterhead:** `'Playfair Display'`, `'Pirata One'`, or `'UnifrakturMaguntia'` with ornate ornamental flourishes.
+2. **Main Headlines & Section Kickers:** `'Playfair Display'`, `'Cinzel'`, and `'Old Standard TT'`.
+3. **Article Copy & Editorial Text:** `'Libre Baskerville'`, `'Cormorant Garamond'`, or `'Merriweather'` with CSS `text-align: justify` and `text-justify: inter-word`.
+4. **Interactive Inputs, Telegrams & Dispatches:** `'Special Elite'` or `'Courier Prime'` to replicate mechanical typewriter keystrokes.
 
 ---
 
-### 4. Click-to-Edit Modal / Tile Inspector Page
-
-Clicking on any tile header or edit icon opens the **"Typesetter's Linotype Inspector"** modal / edit view:
+### 4. Page Architecture & Section Layout
 
 ```
 +========================================================================+
-| 🪶 THE TYPESETTER'S DESK — TILE CONFIGURATION & EDIT VIEW             |
+|                       [TOP DATE & MOTTO BANNER]                        |
+| Weather: Foggy, 54°F • London & Worldwide Edition • Price: 2 Pence    |
 +========================================================================+
-| Tile Name:       [ Telegraphic Dispatch Verdict                       ] |
-| Column Span:     ( ) 4 Cols  (•) 6 Cols  ( ) 8 Cols  ( ) 12 Cols (Full) |
-| Display Header:  [ BREAKING DISPATCH & CLASSIFIED TELEGRAPH           ] |
-| Subhead Kicker:  [ Transmitted via Naive Bayes Rotary Telegraph       ] |
-| Section Theme:   [ Crimson Broadsheet / Gold Foil / Ink Sepia    ▼ ]    |
-| Custom Content:  [ Enable Probability Gauges [✓] Enable Audio [✓]     ] |
-| Data Filter:     [ All Categories (Sport, Tech, Business, Pol, Ent)  ▼] |
-+------------------------------------------------------------------------+
-| [ Save & Typeset Tile ]    [ Reset to Default ]    [ Dismiss Inspector ]|
+|                                                                        |
+|                     𝕿𝖍𝖊 𝕯𝖆𝖎𝖑𝖞 𝕮𝖑𝖆𝖘𝖘𝖎𝖋𝖎𝖊𝖗                       |
+|           VOICE OF THE INTELLIGENT PRESS • AUTOMATED BY NAIVE BAYES    |
+|                                                                        |
++========================================================================+
+| [TICKER TAPE]: BREAKING NEWS • MODEL ACCURACY AT 97.4% • 5 TOPICS READ |
++========================================================================+
+|                                  |                                     |
+|  COLUMN 1: THE TYPESETTER'S DESK |  COLUMN 2: THE DISPATCH VERDICT     |
+|  (Interactive Input Area)        |  (Classification & Stamp Result)    |
+|                                  |                                     |
+|  • Manuscript Textarea           |  • [RUBBER STAMP BADGE: "POLITICS"] |
+|  • Sample Dispatch Telegrams     |  • Confidence Gauge (Antique Meter) |
+|    - Sport Derby Dispatch        |  • Probability Distribution Ledger  |
+|    - Tech Silicon Breakthrough   |    (Business, Tech, Sport, etc.)    |
+|    - Business Market Rally       |  • Top Keyword Signals (TF-IDF Sal.)|
+|  • "Engage The Rotary Press" btn |                                     |
+|                                  |                                     |
++----------------------------------+-------------------------------------+
+|                                                                        |
+|  COLUMN 3 (SPANNING): THE EDITORIAL AUDIT & ARCHIVAL METRICS           |
+|  • Model Metrics: Accuracy (97.4%), Precision (0.97), Recall (0.97)    |
+|  • Confusion Matrix & Confusion Ledger (Classified Distribution)       |
+|  • Feature Lexicon Highlights (Top n-grams per department)             |
+|                                                                        |
++========================================================================+
+|  FOOTER: "Typeset with Care • Antigravity Press • Archive No. 2026"     |
 +========================================================================+
 ```
 
-#### Editable Attributes per Tile:
-- **Title & Kicker Text**: Customize the vintage headlines and subheadings.
-- **Column Span & Width**: Change grid width (`span 4`, `span 6`, `span 8`, `span 12`).
-- **Telemetry Display Toggles**: Toggle confidence percentage, bar gauges, raw logits, or timestamp badges.
-- **Custom Notes / Editorial Commentary**: Inject custom editorial copy directly into the tile.
-- **Visual Styling**: Choose vintage ink accent borders (Crimson, Forest Ink, Indigo, Sepia).
+---
+
+### 5. Detailed Component Specifications
+
+#### 5.1 The Historic Letterhead & Masthead
+- **Ornate Triple Rule**: Thick center line flanked by thin hair lines with antique diamond rosettes.
+- **Date & Edition Bar**: Dynamic real-time date formatted as `"Friday, the 9th of October, Anno Domini 2026"`.
+- **Weather & Market Widget**: `"Barometer: 30.12 in • Press Condition: Prime • Model State: Tuned & Ready"`.
+
+#### 5.2 The Typesetter's Slate (Input Console)
+- Styled as a vintage typewriter paper feed with ruled lines and a subtle cursor blink.
+- Pre-loaded "Telegram Snippets" (quick sample buttons styled as Western Union telegram cards).
+- Clear, Paste, and Classify buttons styled with embossed beveled brass/woodblock edges.
+
+#### 5.3 The Telegraphic Verdict (Classification Display)
+- **Rubber Stamp Animation**: Stamped verdict slamming down at a slight random angle (`rotate(-4deg)`) with distressed ink edge texture.
+- **Category Badge**: Distinct vintage woodcut borders tailored to each department:
+  - 🏛️ *Politics* (Crimson)
+  - ⚽ *Sport* (Forest Ink)
+  - 💼 *Business* (Amber)
+  - ⚡ *Tech* (Indigo)
+  - 🎭 *Entertainment* (Plum)
+- **Galvanometer / Probability Ledger**: Antique horizontal bar gauges showing probability percentages from 0% to 100%.
+
+#### 5.4 The Editorial Audit (Model Performance Section)
+- Tabular display resembling a 19th-century stock and trade ledger.
+- Displays TF-IDF vocabulary size (over 14,000 n-grams analyzed), test accuracy, F1-scores, and training parameters (`alpha=0.1`, `ngram_range=(1,2)`).
 
 ---
 
-### 5. Standard Tile Catalog
-
-| Tile ID | Title | Default Span | Primary Role |
-| :--- | :--- | :--- | :--- |
-| `tile-input` | **The Typesetter's Slate** | 6 Columns | Interactive typewriter input + sample telegrams |
-| `tile-verdict` | **The Telegraphic Verdict** | 6 Columns | Stamped category badge + probability galvanometer |
-| `tile-audit` | **The Editorial Audit** | 7 Columns | Accuracy (97.4%), Precision, Recall & F1 tables |
-| `tile-lexicon` | **Classifieds & Top N-Grams** | 5 Columns | Top keywords driving classification decisions |
-| `tile-matrix` | **Confusion Matrix Gazette** | 12 Columns | Visual matrix of predicted vs actual test samples |
-| `tile-ticker` | **Telegraphic News Wire** | 12 Columns | Real-time scrolling vintage stock/news ticker |
-
----
-
-### 6. Technical Stack & Implementation Plan
+### 6. Technical Stack & Implementation Strategy
 
 ```
 web/
-├── DESIGN_DOC.md       # Architecture specification with drag-and-drop & edit specs
-├── index.html          # Semantic broadsheet DOM with draggable tile containers
-├── styles.css          # Newspaper styling, drag physics, linotype inspector modal
-├── app.js              # Drag-and-drop engine, tile inspector modal, ML predictions
-├── server.py           # Python HTTP / REST API connecting scikit-learn pipeline
-└── assets/             # Textures & vintage woodcut assets
+├── index.html          # Semantic HTML5 broadsheet structure with microdata
+├── styles.css          # Vintage typography, paper textures, letterpress CSS
+├── app.js              # Client-side UI logic, samples, and API integration
+├── api.py              # Lightweight Flask/FastAPI backend serving Naive Bayes
+└── assets/             # Textures (paper grain SVG), woodcut ornaments, SVG stamps
 ```
+
+#### Key Technical Highlights:
+1. **Zero External Heavy Framework Overhead**: High-speed Vanilla HTML5 + CSS Grid + Modern JS for optimal rendering and smooth 60fps stamping animations.
+2. **Self-Contained Mode & Live Backend Mode**:
+   - *Standalone Mode*: Pre-bundled client model weights or fallback heuristic simulator for instantaneous static preview.
+   - *Live Backend Mode*: Connects to `classify.py` / `api.py` endpoint for exact scikit-learn pipeline inference.
+3. **Print & Export Feature**: `@media print` CSS sheet formatting the current classification into an authentic printable 1-page vintage morning paper.
 
 ---
 
-### 7. Phased Implementation Roadmap
-- [x] **Phase 1**: Updated Design Document with Draggable Tiles & Edit Modal (`web/DESIGN_DOC.md`).
-- [ ] **Phase 2**: HTML Skeleton with Draggable Tile Components (`web/index.html`).
-- [ ] **Phase 3**: Vintage Broadsheet Styles, Drag Shadows & Linotype Modal CSS (`web/styles.css`).
-- [ ] **Phase 4**: Drag-and-Drop Engine, State Management & Tile Editor JS (`web/app.js`).
-- [ ] **Phase 5**: Integrated Python Model Server (`web/server.py`).
+### 7. Next Steps & Development Roadmap
+- [x] **Phase 1**: Architecture & Visual Design Document (`web/DESIGN_DOC.md`).
+- [ ] **Phase 2**: Core HTML structure (`web/index.html`) & Masthead typography.
+- [ ] **Phase 3**: Broadsheet layout and vintage ink CSS styling (`web/styles.css`).
+- [ ] **Phase 4**: Interactive client script (`web/app.js`) with sample telegrams & probability animations.
+- [ ] **Phase 5**: Python web server / API integration (`web/server.py`) connecting the scikit-learn model.

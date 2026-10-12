@@ -1,0 +1,1071 @@
+/* ==========================================================================
+   THE DAILY CLASSIFIER — VINTAGE BROADSHEET DESIGN SYSTEM
+   ========================================================================== */
+
+:root {
+    /* Color Palette */
+    --bg-parchment: #F5EFE0;
+    --bg-parchment-light: #FAF6ED;
+    --bg-parchment-dark: #E8DEC8;
+    --bg-parchment-aged: #DFD3BA;
+    
+    --ink-primary: #1F1A17;
+    --ink-secondary: #4A3E35;
+    --ink-faded: #7D6F63;
+    --ink-highlight: #0D0B0A;
+    
+    --rule-color: #2E2620;
+    --rule-light: #B8A995;
+    --rule-gold: #C5A059;
+    
+    /* Department Rubber Stamp Pigments */
+    --stamp-red: #96281B;
+    --stamp-green: #2B5838;
+    --stamp-blue: #224870;
+    --stamp-amber: #A05A1C;
+    --stamp-purple: #5C2D63;
+    
+    /* Fonts */
+    --font-masthead: 'UnifrakturMaguntia', 'Pirata One', 'Playfair Display', serif;
+    --font-headline: 'Playfair Display SC', 'Playfair Display', Georgia, serif;
+    --font-kicker: 'Cinzel', 'Playfair Display SC', serif;
+    --font-body: 'Libre Baskerville', 'IM Fell English', Georgia, serif;
+    --font-typewriter: 'Special Elite', 'Courier Prime', Courier, monospace;
+    --font-ledger: 'Courier Prime', monospace;
+    
+    /* Shadows & Artifacts */
+    --shadow-paper: 0 10px 30px rgba(44, 34, 25, 0.12), 0 1px 4px rgba(44, 34, 25, 0.08);
+    --shadow-stamp: inset 0 0 4px rgba(0,0,0,0.25), 0 3px 6px rgba(0,0,0,0.15);
+}
+
+/* Reset & Base Setup */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 15px;
+    scroll-behavior: smooth;
+    background-color: #2b221b;
+}
+
+body.newspaper-theme {
+    min-height: 100vh;
+    font-family: var(--font-body);
+    color: var(--ink-primary);
+    background-color: var(--bg-parchment);
+    background-image: 
+        radial-gradient(circle at 50% 0%, #faf5ea 0%, var(--bg-parchment) 70%),
+        radial-gradient(circle at 20% 80%, rgba(210, 190, 160, 0.3) 0%, transparent 60%);
+    line-height: 1.6;
+    padding: 24px 16px 40px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Subtle Paper Grain & Noise Texture */
+.paper-texture-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    z-index: 999;
+}
+
+/* Broadsheet Container */
+.broadsheet-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    background-color: var(--bg-parchment-light);
+    border: 3px double var(--rule-color);
+    padding: 24px 32px 36px;
+    box-shadow: 0 15px 45px rgba(25, 18, 12, 0.35), 0 0 0 1px rgba(100, 80, 60, 0.2);
+    position: relative;
+}
+
+/* Ornate Corner Accents */
+.broadsheet-container::before,
+.broadsheet-container::after {
+    content: "✦";
+    position: absolute;
+    font-size: 16px;
+    color: var(--rule-color);
+}
+.broadsheet-container::before { top: 6px; left: 8px; }
+.broadsheet-container::after { top: 6px; right: 8px; }
+
+/* ==========================================================================
+   HEADER & TOP BAR
+   ========================================================================== */
+
+.masthead-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--rule-color);
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+    font-family: var(--font-kicker);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-secondary);
+}
+
+.top-bar-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.top-bar-item.weather-gauge .ornament {
+    color: var(--rule-gold);
+}
+
+.top-bar-item.edition-date {
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink-primary);
+}
+
+.vintage-pill-btn {
+    background: var(--bg-parchment-dark);
+    border: 1px solid var(--rule-color);
+    padding: 4px 10px;
+    font-family: var(--font-kicker);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--ink-primary);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+    box-shadow: 1px 1px 0px var(--rule-color);
+}
+
+.vintage-pill-btn:hover {
+    background: var(--ink-primary);
+    color: var(--bg-parchment-light);
+}
+
+.vintage-pill-btn:active {
+    transform: translate(1px, 1px);
+    box-shadow: none;
+}
+
+/* ==========================================================================
+   MASTHEAD SECTION
+   ========================================================================== */
+
+.masthead-section {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.masthead-ornament-rule {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin: 6px 0;
+}
+
+.masthead-ornament-rule.top {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--ink-secondary);
+}
+
+.masthead-ornament-rule.top .rule-leaf-left,
+.masthead-ornament-rule.top .rule-leaf-right {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--rule-color), transparent);
+}
+
+.masthead-kicker {
+    font-family: var(--font-kicker);
+    font-size: 0.85rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-secondary);
+    margin-bottom: 4px;
+}
+
+.newspaper-title {
+    font-family: var(--font-headline);
+    font-size: 3.8rem;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-primary);
+    line-height: 1.05;
+    margin: 4px 0 6px;
+    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.7), 2px 2px 0px rgba(0,0,0,0.08);
+}
+
+.masthead-motto {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink-secondary);
+    max-width: 820px;
+    margin: 0 auto 12px;
+}
+
+.masthead-sub-banner {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    border-top: 2px solid var(--rule-color);
+    border-bottom: 2px solid var(--rule-color);
+    padding: 6px 12px;
+    font-family: var(--font-kicker);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--ink-primary);
+}
+
+.banner-cell.center {
+    text-align: center;
+    border-left: 1px solid var(--rule-color);
+    border-right: 1px solid var(--rule-color);
+}
+
+.banner-cell:last-child {
+    text-align: right;
+}
+
+.masthead-ornament-rule.bottom .rule-line {
+    width: 100%;
+    height: 1px;
+    background-color: var(--rule-color);
+    margin-top: 2px;
+}
+
+/* ==========================================================================
+   TICKER TAPE (TELEGRAPH WIRE)
+   ========================================================================== */
+
+.ticker-tape-container {
+    display: flex;
+    align-items: center;
+    background-color: var(--ink-primary);
+    color: var(--bg-parchment-light);
+    border: 1px solid var(--rule-color);
+    margin-bottom: 20px;
+    overflow: hidden;
+    height: 34px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.ticker-label {
+    background-color: var(--stamp-red);
+    color: #FFF;
+    font-family: var(--font-kicker);
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    padding: 0 16px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    border-right: 2px solid var(--rule-color);
+}
+
+.ticker-marquee {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.ticker-content {
+    display: inline-block;
+    padding-left: 100%;
+    font-family: var(--font-typewriter);
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    animation: tickerAnimation 32s linear infinite;
+}
+
+.ticker-content:hover {
+    animation-play-state: paused;
+}
+
+@keyframes tickerAnimation {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-100%, 0, 0); }
+}
+
+/* ==========================================================================
+   BROADSHEET MAIN GRID (3 COLUMNS)
+   ========================================================================== */
+
+.broadsheet-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr 0.95fr;
+    gap: 24px;
+    position: relative;
+}
+
+/* Column Dividers */
+.newspaper-column {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.newspaper-column:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -12px;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--rule-color) 0%, var(--rule-light) 50%, var(--rule-color) 100%);
+}
+
+.section-header {
+    text-align: center;
+    border-bottom: 2px solid var(--rule-color);
+    padding-bottom: 6px;
+    margin-bottom: 14px;
+}
+
+.section-title {
+    font-family: var(--font-headline);
+    font-size: 1.45rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-primary);
+    line-height: 1.2;
+}
+
+.section-sub {
+    font-family: var(--font-kicker);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-secondary);
+}
+
+/* ==========================================================================
+   COLUMN 1: TYPESETTER'S DESK (INPUT)
+   ========================================================================== */
+
+.typewriter-console {
+    background: var(--bg-parchment-dark);
+    border: 1px solid var(--rule-color);
+    padding: 14px;
+    border-radius: 2px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1), var(--shadow-paper);
+    margin-bottom: 16px;
+}
+
+.console-ribbon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed var(--rule-color);
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+}
+
+.ribbon-text {
+    font-family: var(--font-kicker);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--ink-secondary);
+}
+
+.status-indicator {
+    font-family: var(--font-typewriter);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border: 1px solid currentColor;
+}
+
+.status-indicator.ready {
+    color: var(--stamp-green);
+    background: rgba(43, 88, 56, 0.1);
+}
+
+.status-indicator.busy {
+    color: var(--stamp-red);
+    background: rgba(150, 40, 27, 0.1);
+}
+
+/* Telegram Preset Chips */
+.telegram-presets {
+    margin-bottom: 12px;
+}
+
+.presets-label {
+    display: block;
+    font-family: var(--font-kicker);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--ink-secondary);
+    margin-bottom: 6px;
+}
+
+.telegram-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.telegram-chip {
+    background: var(--bg-parchment);
+    border: 1px solid var(--rule-color);
+    padding: 4px 8px;
+    font-family: var(--font-kicker);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.18s ease;
+    box-shadow: 1px 1px 0px var(--rule-color);
+}
+
+.telegram-chip .chip-tag {
+    font-weight: 700;
+    font-size: 0.68rem;
+}
+
+.telegram-chip .chip-title {
+    font-size: 0.7rem;
+    color: var(--ink-secondary);
+}
+
+.telegram-chip:hover {
+    background: var(--ink-primary);
+    color: var(--bg-parchment-light);
+    transform: translateY(-1px);
+}
+
+.telegram-chip:hover .chip-title {
+    color: var(--bg-parchment-dark);
+}
+
+/* Textarea Slate */
+.textarea-wrapper {
+    position: relative;
+    margin-bottom: 12px;
+}
+
+textarea#articleTextInput {
+    width: 100%;
+    background-color: var(--bg-parchment-light);
+    color: var(--ink-primary);
+    border: 1px solid var(--rule-color);
+    font-family: var(--font-typewriter);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    padding: 12px 14px;
+    resize: vertical;
+    outline: none;
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.08);
+    transition: border-color 0.2s;
+}
+
+textarea#articleTextInput:focus {
+    border-color: var(--ink-highlight);
+    background-color: #FFFDF9;
+    box-shadow: inset 0 1px 4px rgba(0,0,0,0.12), 0 0 0 1px var(--rule-color);
+}
+
+/* Button Actions Bar */
+.input-actions-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.6fr;
+    gap: 8px;
+}
+
+.btn-vintage {
+    border: 1px solid var(--rule-color);
+    padding: 8px 12px;
+    font-family: var(--font-kicker);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    box-shadow: 2px 2px 0px var(--rule-color);
+}
+
+.btn-vintage.secondary {
+    background: var(--bg-parchment);
+    color: var(--ink-primary);
+}
+
+.btn-vintage.secondary:hover {
+    background: var(--bg-parchment-dark);
+}
+
+.btn-vintage.primary {
+    background: var(--stamp-red);
+    color: #FFF;
+    border-color: #6d1c12;
+}
+
+.btn-vintage.primary:hover {
+    background: #b53020;
+    box-shadow: 2px 3px 0px #4d140d;
+}
+
+.btn-vintage:active {
+    transform: translate(2px, 2px);
+    box-shadow: none !important;
+}
+
+/* Pulse Hover for Rotary Button */
+.pulse-hover:hover {
+    animation: vintageThrob 1.2s infinite ease-in-out;
+}
+
+@keyframes vintageThrob {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+/* Vintage Notice Box */
+.vintage-advert-box {
+    border: 1px dashed var(--rule-color);
+    padding: 10px 14px;
+    background: var(--bg-parchment-aged);
+    margin-top: auto;
+}
+
+.advert-title {
+    font-family: var(--font-kicker);
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-align: center;
+    border-bottom: 1px solid var(--rule-color);
+    padding-bottom: 3px;
+    margin-bottom: 6px;
+}
+
+.advert-copy {
+    font-size: 0.85rem;
+    color: var(--ink-secondary);
+    line-height: 1.45;
+    text-align: justify;
+}
+
+.drop-cap {
+    float: left;
+    font-family: var(--font-headline);
+    font-size: 2.2rem;
+    line-height: 0.85;
+    padding-top: 2px;
+    padding-right: 6px;
+    font-weight: 900;
+    color: var(--ink-primary);
+}
+
+/* ==========================================================================
+   COLUMN 2: TELEGRAPHIC VERDICT & RUBBER STAMP
+   ========================================================================== */
+
+.verdict-display-card {
+    background: var(--bg-parchment-dark);
+    border: 2px solid var(--rule-color);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 480px;
+    position: relative;
+    box-shadow: var(--shadow-paper);
+}
+
+/* Rubber Stamp Stage */
+.stamp-stage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 18px 0;
+    position: relative;
+    overflow: hidden;
+    min-height: 130px;
+    border-bottom: 1px dashed var(--rule-color);
+}
+
+.rubber-stamp {
+    display: inline-block;
+    border: 4px double currentColor;
+    padding: 10px 24px;
+    text-align: center;
+    border-radius: 4px;
+    position: relative;
+    transform: rotate(-3.5deg);
+    color: var(--stamp-red);
+    box-shadow: var(--shadow-stamp);
+    opacity: 1;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background-color: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(1px);
+}
+
+/* Slam Animation Trigger */
+.rubber-stamp.slam-animate {
+    animation: stampSlam 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.3) forwards;
+}
+
+@keyframes stampSlam {
+    0% {
+        opacity: 0;
+        transform: scale(2.8) rotate(12deg);
+        filter: blur(4px);
+    }
+    60% {
+        opacity: 0.95;
+        transform: scale(0.92) rotate(-5deg);
+        filter: blur(0px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(-3.5deg);
+    }
+}
+
+.stamp-dept {
+    font-family: var(--font-headline);
+    font-size: 2.1rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.stamp-sub {
+    font-family: var(--font-kicker);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    border-top: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    margin: 4px 0;
+    padding: 1px 0;
+}
+
+.stamp-conf {
+    font-family: var(--font-typewriter);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+/* Dynamic Department Stamp Themes */
+.rubber-stamp.dept-sport { color: var(--stamp-green); }
+.rubber-stamp.dept-tech { color: var(--stamp-blue); }
+.rubber-stamp.dept-business { color: var(--stamp-amber); }
+.rubber-stamp.dept-entertainment { color: var(--stamp-purple); }
+.rubber-stamp.dept-politics { color: var(--stamp-red); }
+
+/* Galvanometer / Confidence Gauge */
+.confidence-galvanometer {
+    border: 1px solid var(--rule-color);
+    background: var(--bg-parchment);
+    padding: 10px 12px;
+}
+
+.gauge-header {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-kicker);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+}
+
+.gauge-score {
+    font-family: var(--font-typewriter);
+    font-size: 0.85rem;
+    color: var(--ink-highlight);
+}
+
+.antique-meter-track {
+    position: relative;
+    height: 16px;
+    background: #d8cdb4;
+    border: 1px solid var(--rule-color);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.antique-meter-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #96281B, #C5A059 50%, #2B5838 100%);
+    width: 0%;
+    transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 6px rgba(0,0,0,0.3);
+}
+
+.meter-tick-marks {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-ledger);
+    font-size: 0.65rem;
+    color: var(--ink-faded);
+    margin-top: 3px;
+}
+
+/* Category Probability Ledger */
+.probability-ledger {
+    border: 1px solid var(--rule-color);
+    background: var(--bg-parchment);
+    padding: 10px 12px;
+}
+
+.ledger-title {
+    font-family: var(--font-kicker);
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-align: center;
+    border-bottom: 1px solid var(--rule-color);
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+}
+
+.ledger-row {
+    display: grid;
+    grid-template-columns: 85px 1fr 50px;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 0;
+    font-family: var(--font-ledger);
+    font-size: 0.82rem;
+}
+
+.ledger-row:not(:last-child) {
+    border-bottom: 1px dotted var(--rule-light);
+}
+
+.ledger-row.winner {
+    font-weight: 700;
+    color: var(--ink-highlight);
+    background: rgba(197, 160, 89, 0.15);
+}
+
+.ledger-dept {
+    text-transform: capitalize;
+}
+
+.ledger-bar-track {
+    height: 8px;
+    background: #dfd4bf;
+    border: 1px solid var(--rule-light);
+}
+
+.ledger-bar-fill {
+    height: 100%;
+    background: var(--rule-color);
+    transition: width 0.6s ease;
+}
+
+.ledger-percent {
+    text-align: right;
+}
+
+/* Salient Signals Section */
+.salient-signals-section {
+    border: 1px solid var(--rule-color);
+    background: var(--bg-parchment);
+    padding: 10px 12px;
+}
+
+.signals-title {
+    font-family: var(--font-kicker);
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+    color: var(--ink-secondary);
+}
+
+.signal-tags-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.signal-tag {
+    background: var(--bg-parchment-dark);
+    border: 1px solid var(--rule-light);
+    font-family: var(--font-typewriter);
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    color: var(--ink-primary);
+}
+
+/* ==========================================================================
+   COLUMN 3: EDITORIAL AUDIT & ARCHIVAL BENCHMARKS
+   ========================================================================== */
+
+.archival-scorecard {
+    background: var(--bg-parchment);
+    border: 1px solid var(--rule-color);
+    margin-bottom: 14px;
+    overflow-x: auto;
+}
+
+.vintage-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-ledger);
+    font-size: 0.8rem;
+    text-align: left;
+}
+
+.vintage-table th {
+    background: var(--bg-parchment-dark);
+    border-bottom: 2px solid var(--rule-color);
+    font-family: var(--font-kicker);
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    padding: 6px 8px;
+    color: var(--ink-primary);
+}
+
+.vintage-table td {
+    padding: 5px 8px;
+    border-bottom: 1px dotted var(--rule-light);
+}
+
+.vintage-table tr:nth-child(even) td {
+    background: rgba(0,0,0,0.02);
+}
+
+.vintage-table tfoot td {
+    border-top: 2px solid var(--rule-color);
+    border-bottom: none;
+    background: var(--bg-parchment-dark);
+    font-weight: 700;
+}
+
+.dept-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-right: 4px;
+}
+.dept-dot.sport { background: var(--stamp-green); }
+.dept-dot.politics { background: var(--stamp-red); }
+.dept-dot.business { background: var(--stamp-amber); }
+.dept-dot.entertainment { background: var(--stamp-purple); }
+.dept-dot.tech { background: var(--stamp-blue); }
+
+/* Telemetry Grid Boxes */
+.telemetry-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.telemetry-box {
+    background: var(--bg-parchment);
+    border: 1px solid var(--rule-color);
+    padding: 8px;
+    text-align: center;
+}
+
+.box-number {
+    display: block;
+    font-family: var(--font-headline);
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: var(--ink-primary);
+    line-height: 1.1;
+}
+
+.box-caption {
+    font-family: var(--font-kicker);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--ink-secondary);
+}
+
+/* Colophon & Seal */
+.colophon-box {
+    border: 1px solid var(--rule-color);
+    background: var(--bg-parchment-aged);
+    padding: 10px 12px;
+    text-align: center;
+    margin-top: auto;
+}
+
+.colophon-seal {
+    font-family: var(--font-kicker);
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    color: var(--rule-gold);
+    margin-bottom: 4px;
+}
+
+.colophon-text {
+    font-size: 0.78rem;
+    color: var(--ink-secondary);
+    line-height: 1.4;
+    font-style: italic;
+}
+
+/* ==========================================================================
+   FOOTER SECTION
+   ========================================================================== */
+
+.broadsheet-footer {
+    margin-top: 28px;
+    text-align: center;
+}
+
+.footer-divider-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.footer-divider-ornament .line {
+    flex: 1;
+    height: 1px;
+    background: var(--rule-color);
+}
+
+.footer-divider-ornament .icon {
+    font-size: 12px;
+    color: var(--ink-secondary);
+}
+
+.footer-meta {
+    font-family: var(--font-kicker);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-secondary);
+    line-height: 1.6;
+}
+
+.print-dispatch-summary {
+    display: none;
+}
+
+/* ==========================================================================
+   PRINT MEDIA STYLES (@media print)
+   ========================================================================== */
+
+@media print {
+    body {
+        background: #FFF !important;
+        padding: 0 !important;
+        color: #000 !important;
+    }
+
+    .paper-texture-overlay,
+    .masthead-top-bar .dispatch-controls,
+    .telegram-presets,
+    .input-actions-bar,
+    .vintage-advert-box {
+        display: none !important;
+    }
+
+    .broadsheet-container {
+        border: 2px solid #000 !important;
+        box-shadow: none !important;
+        padding: 12px !important;
+        max-width: 100% !important;
+    }
+
+    .newspaper-title {
+        font-size: 2.8rem !important;
+        text-shadow: none !important;
+    }
+
+    .broadsheet-grid {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    .column-audit {
+        grid-column: span 2;
+    }
+
+    .print-dispatch-summary {
+        display: block;
+        text-align: center;
+        margin-top: 14px;
+        font-family: var(--font-kicker);
+        font-size: 0.75rem;
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE LAYOUT BREAKPOINTS
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+    .broadsheet-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .newspaper-column.column-audit {
+        grid-column: span 2;
+    }
+    .newspaper-column:not(:last-child)::after {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .broadsheet-container {
+        padding: 16px 12px;
+    }
+    .newspaper-title {
+        font-size: 2.4rem;
+    }
+    .masthead-top-bar {
+        flex-direction: column;
+        gap: 6px;
+        text-align: center;
+    }
+    .masthead-sub-banner {
+        grid-template-columns: 1fr;
+        gap: 4px;
+        text-align: center;
+    }
+    .banner-cell.center {
+        border: none;
+    }
+    .banner-cell:last-child {
+        text-align: center;
+    }
+    .broadsheet-grid {
+        grid-template-columns: 1fr;
+    }
+    .newspaper-column.column-audit {
+        grid-column: span 1;
+    }
+    .input-actions-bar {
+        grid-template-columns: 1fr;
+    }
+}
