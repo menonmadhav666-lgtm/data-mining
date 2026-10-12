@@ -938,7 +938,7 @@ textarea#articleTextInput:focus {
     border-collapse: collapse;
     font-family: var(--font-ledger);
     font-size: 0.8rem;
-    text-align: left;
+    table-layout: fixed;
 }
 
 .vintage-table th {
@@ -948,19 +948,29 @@ textarea#articleTextInput:focus {
     font-size: 0.72rem;
     font-weight: 900;
     letter-spacing: 0.06em;
-    padding: 6px 5px;
+    padding: 7px 6px;
     color: var(--ink-primary);
+    text-align: center;
 }
 
-.vintage-table th:first-child,
-.vintage-table td:first-child {
-    white-space: nowrap;
+.vintage-table th:first-child {
+    text-align: left;
+    padding-left: 10px;
+    width: 37%;
 }
 
 .vintage-table td {
-    padding: 5px 5px;
+    padding: 6px 6px;
     font-size: 0.78rem;
     border-bottom: 1px dotted var(--rule-light);
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+
+.vintage-table td:first-child {
+    text-align: left;
+    padding-left: 10px;
+    white-space: nowrap;
 }
 
 .vintage-table tr:nth-child(even) td {
@@ -972,6 +982,12 @@ textarea#articleTextInput:focus {
     border-bottom: none;
     background: var(--bg-parchment-dark);
     font-weight: 700;
+    text-align: center;
+}
+
+.vintage-table tfoot td:first-child {
+    text-align: left;
+    padding-left: 10px;
 }
 
 .dept-dot {
