@@ -742,13 +742,25 @@ textarea#articleTextInput:focus {
 }
 
 .meter-tick-marks {
-    display: flex;
-    justify-content: space-between;
+    position: relative;
+    height: 14px;
     font-family: var(--font-ledger);
     font-size: 0.65rem;
     color: var(--ink-faded);
-    margin-top: 3px;
+    margin-top: 4px;
 }
+
+.meter-tick-marks span {
+    position: absolute;
+    transform: translateX(-50%);
+    line-height: 1;
+}
+
+.meter-tick-marks span:nth-child(1) { left: 0%; transform: translateX(0); }
+.meter-tick-marks span:nth-child(2) { left: 25%; }
+.meter-tick-marks span:nth-child(3) { left: 50%; }
+.meter-tick-marks span:nth-child(4) { left: 75%; }
+.meter-tick-marks span:nth-child(5) { left: 100%; transform: translateX(-100%); }
 
 /* Category Probability Ledger */
 .probability-ledger {
