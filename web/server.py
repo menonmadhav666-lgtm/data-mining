@@ -202,21 +202,6 @@ class BroadsheetHandler(SimpleHTTPRequestHandler):
         super().end_headers()
 
 
-def clear_terminal():
-    """Clear all previous content from the terminal screen."""
-    if sys.platform == "win32":
-        try:
-            sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-            sys.stderr.reconfigure(encoding="utf-8", errors="replace")
-        except Exception:
-            pass
-        os.system("")
-
-    os.system("cls" if os.name == "nt" else "clear")
-    sys.stdout.write("\033[H\033[2J\033[3J")
-    sys.stdout.flush()
-
-
 def display_banner(port=8000):
     """Display clean plaintext banner with News Classification and localhost link."""
     title = "News Classification"
@@ -228,15 +213,7 @@ def display_banner(port=8000):
 
 def run_server(port=8000):
     """Initialize model and launch HTTP server."""
-    # Clear terminal before anything else
-    clear_terminal()
-
     train_classifier()
-
-    # Clear terminal again so any training output/warnings are wiped clean
-    clear_terminal()
-
-    # Display banner with news classification and localhost link alone
     display_banner(port=port)
 
     server_address = ("0.0.0.0", port)
