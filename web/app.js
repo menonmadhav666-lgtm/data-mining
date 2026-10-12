@@ -77,7 +77,6 @@ let audioContext = null;
 
 // DOM Elements
 const currentDateFormattedEl = document.getElementById("currentDateFormatted");
-const barometerValueEl = document.getElementById("barometerValue");
 const articleTextInput = document.getElementById("articleTextInput");
 const classifyBtn = document.getElementById("classifyBtn");
 const clearBtn = document.getElementById("clearBtn");
