@@ -527,25 +527,30 @@ textarea#articleTextInput:focus {
 /* Button Actions Bar */
 .input-actions-bar {
     display: grid;
-    grid-template-columns: 1fr 1fr 1.6fr;
-    gap: 8px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.25fr);
+    gap: 7px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .btn-vintage {
     border: 1px solid var(--rule-color);
-    padding: 8px 12px;
+    padding: 7px 8px;
     font-family: var(--font-kicker);
-    font-size: 0.78rem;
+    font-size: 0.74rem;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 5px;
     transition: all 0.2s ease;
     box-shadow: 2px 2px 0px var(--rule-color);
+    box-sizing: border-box;
+    min-width: 0;
+    white-space: nowrap;
 }
 
 .btn-vintage.secondary {
