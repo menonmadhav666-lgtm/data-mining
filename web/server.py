@@ -217,66 +217,13 @@ def clear_terminal():
     sys.stdout.flush()
 
 
-def _display_width(text):
-    """Calculate terminal display width considering emojis and ANSI codes."""
-    import unicodedata
-    width = 0
-    in_escape = False
-    for char in text:
-        if char == "\033":
-            in_escape = True
-            continue
-        if in_escape:
-            if char == "m":
-                in_escape = False
-            continue
-        if ord(char) > 0x1F000 or unicodedata.east_asian_width(char) in ("W", "F"):
-            width += 2
-        else:
-            width += 1
-    return width
-
-
 def display_banner(port=8000):
-    """Display startup banner with News Classification and localhost link alone."""
-    BORDER = "\033[38;5;218m"  # Soft pastel pink
-    PURPLE = "\033[38;5;183m"  # Pastel lavender
-    CYAN = "\033[38;5;117m"    # Pastel sky cyan
-    BOLD = "\033[1m"
-    UNDERLINE = "\033[4m"
-    RESET = "\033[0m"
+    """Display clean plaintext banner with News Classification and localhost link."""
+    title = "News Classification"
+    underline = "-" * len(title)
+    url = f"http://localhost:{port}"
 
-    lines_content = [
-        f"{PURPLE}{BOLD}News Classification{RESET}",
-        f"{CYAN}{UNDERLINE}http://localhost:{port}{RESET}",
-    ]
-
-    width = 46
-    top = f"  {BORDER}╭" + ("─" * (width + 2)) + f"╮{RESET}"
-    bottom = f"  {BORDER}╰" + ("─" * (width + 2)) + f"╯{RESET}"
-    empty = f"  {BORDER}│" + (" " * (width + 2)) + f"│{RESET}"
-
-    output = ["", top, empty]
-    for item in lines_content:
-        if item == "":
-            output.append(empty)
-        else:
-            dw = _display_width(item)
-            padding = width - dw
-            row = f"  {BORDER}│  {RESET}" + item + (" " * max(0, padding)) + f"{BORDER}│{RESET}"
-            output.append(row)
-    output.append(empty)
-    output.append(bottom)
-    output.append("")
-
-    try:
-        print("\n".join(output))
-    except UnicodeEncodeError:
-        # Fallback to plain ASCII banner if terminal encoding doesn't support unicode
-        print("\n" + "-" * 40)
-        print("  News Classification")
-        print(f"  http://localhost:{port}")
-        print("-" * 40 + "\n")
+    print(f"\n{title}\n{underline}\n{url}\n")
 
 
 def run_server(port=8000):
