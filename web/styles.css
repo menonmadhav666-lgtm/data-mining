@@ -438,34 +438,38 @@ body.newspaper-theme {
 .telegram-chip {
     background: var(--bg-parchment);
     border: 1px solid var(--rule-color);
-    padding: 4px 8px;
+    padding: 4px 9px;
     font-family: var(--font-kicker);
     cursor: pointer;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     transition: all 0.18s ease;
     box-shadow: 1px 1px 0px var(--rule-color);
 }
 
-.telegram-chip .chip-tag {
-    font-weight: 700;
-    font-size: 0.68rem;
+.telegram-chip .chip-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.telegram-chip .chip-title {
-    font-size: 0.7rem;
-    color: var(--ink-secondary);
+.telegram-chip .chip-icon-svg {
+    display: block;
+    width: 12px;
+    height: 12px;
+}
+
+.telegram-chip .chip-name {
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
 }
 
 .telegram-chip:hover {
     background: var(--ink-primary);
     color: var(--bg-parchment-light);
     transform: translateY(-1px);
-}
-
-.telegram-chip:hover .chip-title {
-    color: var(--bg-parchment-dark);
 }
 
 /* Textarea Slate */
