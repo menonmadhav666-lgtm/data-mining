@@ -319,8 +319,8 @@ body.newspaper-theme {
 
 .broadsheet-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 0.95fr);
-    gap: 24px;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.2fr) minmax(0, 0.98fr);
+    gap: 22px;
     position: relative;
     width: 100%;
 }
@@ -623,27 +623,29 @@ textarea#articleTextInput:focus {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 18px 0;
+    padding: 16px 8px;
     position: relative;
-    overflow: hidden;
-    min-height: 130px;
+    overflow: visible;
+    min-height: 125px;
     border-bottom: 1px dashed var(--rule-color);
 }
 
 .rubber-stamp {
     display: inline-block;
     border: 4px double currentColor;
-    padding: 10px 24px;
+    padding: 8px 18px;
     text-align: center;
     border-radius: 4px;
     position: relative;
-    transform: rotate(-3.5deg);
+    transform: rotate(-3deg);
     color: var(--stamp-red);
     box-shadow: var(--shadow-stamp);
     opacity: 1;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     background-color: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(1px);
+    max-width: 96%;
+    box-sizing: border-box;
 }
 
 /* Slam Animation Trigger */
@@ -664,16 +666,16 @@ textarea#articleTextInput:focus {
     }
     100% {
         opacity: 1;
-        transform: scale(1) rotate(-3.5deg);
+        transform: scale(1) rotate(-3deg);
     }
 }
 
 .stamp-dept {
     font-family: var(--font-headline);
-    font-size: 2.1rem;
+    font-size: clamp(1.4rem, 2.3vw, 1.85rem);
     font-weight: 900;
-    letter-spacing: 0.1em;
-    line-height: 1;
+    letter-spacing: 0.08em;
+    line-height: 1.05;
     text-transform: uppercase;
 }
 
@@ -883,8 +885,8 @@ textarea#articleTextInput:focus {
     font-family: var(--font-kicker);
     font-size: 0.72rem;
     font-weight: 900;
-    letter-spacing: 0.08em;
-    padding: 6px 8px;
+    letter-spacing: 0.06em;
+    padding: 6px 5px;
     color: var(--ink-primary);
 }
 
@@ -894,7 +896,8 @@ textarea#articleTextInput:focus {
 }
 
 .vintage-table td {
-    padding: 5px 8px;
+    padding: 5px 5px;
+    font-size: 0.78rem;
     border-bottom: 1px dotted var(--rule-light);
 }
 
