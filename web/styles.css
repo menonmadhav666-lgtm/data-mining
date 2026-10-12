@@ -706,7 +706,7 @@ textarea#articleTextInput:focus {
 .confidence-galvanometer {
     border: 1px solid var(--rule-color);
     background: var(--bg-parchment);
-    padding: 10px 12px;
+    padding: 12px 14px 16px;
 }
 
 .gauge-header {
@@ -743,17 +743,19 @@ textarea#articleTextInput:focus {
 
 .meter-tick-marks {
     position: relative;
-    height: 14px;
+    height: 16px;
     font-family: var(--font-ledger);
-    font-size: 0.65rem;
-    color: var(--ink-faded);
-    margin-top: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--ink-secondary);
+    margin-top: 6px;
+    padding-bottom: 2px;
 }
 
 .meter-tick-marks span {
     position: absolute;
     transform: translateX(-50%);
-    line-height: 1;
+    line-height: 1.2;
 }
 
 .meter-tick-marks span:nth-child(1) { left: 0%; transform: translateX(0); }
