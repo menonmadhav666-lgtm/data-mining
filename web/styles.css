@@ -319,9 +319,10 @@ body.newspaper-theme {
 
 .broadsheet-grid {
     display: grid;
-    grid-template-columns: 1.15fr 1fr 0.95fr;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 0.95fr);
     gap: 24px;
     position: relative;
+    width: 100%;
 }
 
 /* Column Dividers */
@@ -329,6 +330,9 @@ body.newspaper-theme {
     display: flex;
     flex-direction: column;
     position: relative;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .newspaper-column:not(:last-child)::after {
@@ -480,6 +484,8 @@ body.newspaper-theme {
 
 textarea#articleTextInput {
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     background-color: var(--bg-parchment-light);
     color: var(--ink-primary);
     border: 1px solid var(--rule-color);
@@ -489,6 +495,7 @@ textarea#articleTextInput {
     padding: 12px 14px;
     resize: vertical;
     outline: none;
+    overflow-wrap: break-word;
     box-shadow: inset 1px 1px 3px rgba(0,0,0,0.08);
     transition: border-color 0.2s;
 }
