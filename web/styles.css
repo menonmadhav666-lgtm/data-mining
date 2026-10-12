@@ -141,9 +141,21 @@ body.newspaper-theme {
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
     transition: all 0.2s ease;
     box-shadow: 1px 1px 0px var(--rule-color);
+}
+
+.vintage-pill-btn .btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vintage-pill-btn .btn-icon-svg {
+    display: block;
+    width: 13px;
+    height: 13px;
 }
 
 .vintage-pill-btn:hover {
