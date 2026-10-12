@@ -274,9 +274,9 @@
 
                 <!-- Antique Seal & Colophon -->
                 <div class="colophon-box">
-                    <div class="colophon-seal">✦ EX LIBRIS MACHINAE ✦</div>
+                    <div class="colophon-seal">✦ MODEL ARCHITECTURE & TRAINING ✦</div>
                     <p class="colophon-text">
-                        Typeset & vectorized with scikit-learn Naive Bayes framework. Evaluated with 500 stratified holdout samples. No human intervention required.
+                        Trained on the BBC news corpus (2,225 articles across 5 categories) using scikit-learn. Text is processed into TF-IDF unigram and bigram word features, then classified using Multinomial Naive Bayes with Laplace smoothing (α = 0.10). Evaluated against 500 stratified holdout test articles, achieving 96.8% overall accuracy.
                     </p>
                 </div>
             </article>
