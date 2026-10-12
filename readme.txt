@@ -2,45 +2,36 @@ BBC Text Categorization (TF-IDF + Multinomial Naive Bayes)
 
 This project trains a text classification pipeline using TF-IDF Vectorizer and Multinomial Naive Bayes (MultinomialNB) on the BBC News dataset.
 
-The system:
+Core Data Mining Pipeline:
 
-Loads and deduplicates 2,225 BBC news articles across 5 categories (business, entertainment, politics, sport, tech).
-Trains the TfidfVectorizer + MultinomialNB pipeline with optimal parameters identified through hyperparameter tuning.
-Evaluates test set metrics (Test Accuracy, Precision, Recall, F1-Score, and Confusion Matrix).
-Takes new text inputs (interactively or via CLI arguments) and predicts the category with a full probability breakdown.
-Project Structure
+1. Data Loading & Deduplication: Loads and deduplicates 2,225 BBC news articles across 5 categories (business, entertainment, politics, sport, tech).
+2. Feature Extraction: Uses TfidfVectorizer with unigram and bigram features (ngram_range=(1, 2)), sublinear term frequency scaling, and English stop words removal.
+3. Model Training: Trains a MultinomialNB classifier with optimal Laplace smoothing (alpha = 0.10).
+4. Evaluation: Evaluates test set metrics on 500 stratified holdout samples (Accuracy ~96.8%, Precision, Recall, and F1-Score).
+5. Inference: Takes text input and predicts the news category with a full probability breakdown across all 5 classes.
 
-bbc_text_classification/
+Project Structure:
+
+data-mining/
 ├── data/
-│   └── bbc-text.csv                            # Downloaded BBC News dataset
-├── classify.py                                 # Interactive & CLI Python script
-└── README.md     
-                              # Documentation and usage guide
-QuickStart
+│   └── bbc-text.csv          # BBC News dataset
+├── web/                      # Web application
+│   ├── server.py             # Server & ML classification pipeline
+│   ├── index.html            # Web interface
+│   ├── styles.css            # Web interface styles
+│   └── app.js                # Client logic
+├── classify.py               # Standalone classification script
+└── README.md                 # Project documentation
 
-1. Run the Python Script
+Usage Guide:
 
-To run the full evaluation and launch the interactive prediction loop:
+To run the web application:
 
-bash
-python classify.py
+From the project root:
+    python web/server.py
 
-To classify a specific headline or article immediately from the command line:
+Or from inside the web/ directory:
+    python server.py
 
-bash
-python classify.py --text "Manchester United clinched a 3-2 victory in the dying minutes of the championship."
-2. Run the Jupyter Notebook
-
-Open and run bbc_text_categorization_modified.ipynb in VS Code or Jupyter:
-
-bash
-jupyter notebook bbc_text_categorization_modified.ipynb
-
-The notebook contains:
-
-Step-by-step data inspection and deduplication.
-Stratified train-test split.
-Pipeline training (TfidfVectorizer + MultinomialNB).
-Formatted metrics evaluation table and confusion matrix.
-predict_article() function with probability visualizations.
-Interactive input() cell to test custom texts.
+Once started, open your browser at:
+    http://localhost:8000
