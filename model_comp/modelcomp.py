@@ -20,7 +20,13 @@ from sklearn.preprocessing import FunctionTransformer
 from sklearn.pipeline import Pipeline
 from sklearn import metrics as sklm
 
-DATA_PATH = os.path.join(os.path.dirname(__file__), "data", "bbc-text.csv")
+_CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(_CURRENT_DIR)
+
+# Look in project root /data or local /data
+DATA_PATH = os.path.join(PROJECT_ROOT, "data", "bbc-text.csv")
+if not os.path.exists(DATA_PATH):
+    DATA_PATH = os.path.join(_CURRENT_DIR, "data", "bbc-text.csv")
 
 
 def load_data(data_path=DATA_PATH):
